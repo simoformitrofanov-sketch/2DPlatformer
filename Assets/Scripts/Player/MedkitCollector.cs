@@ -1,0 +1,21 @@
+using UnityEngine;
+
+[RequireComponent(typeof(Health))]
+public class MedkitCollector : MonoBehaviour
+{
+    private Health _health;
+
+    private void Awake()
+    {
+        _health = GetComponent<Health>();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.TryGetComponent(out Medkit medkit) == false)
+            return;
+
+        _health.FullHeal();
+        Destroy(medkit.gameObject);
+    }
+}

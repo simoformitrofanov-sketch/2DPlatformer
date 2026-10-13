@@ -17,11 +17,15 @@ GameObject:
   - component: {fileID: 565981931017172143}
   - component: {fileID: 3565784271220753398}
   - component: {fileID: 3381754530132286125}
-  - component: {fileID: 4510796536832992219}
   - component: {fileID: 5941106663296662233}
+  - component: {fileID: 1324592962540829234}
   - component: {fileID: 7257936042727435847}
+  - component: {fileID: 1474733571521390302}
+  - component: {fileID: -6343782168724697004}
+  - component: {fileID: 5677219328167365992}
+  - component: {fileID: 4481501509218663184}
   - component: {fileID: 2082663580174975937}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9376a2fbcc0cd5d49bcdaff92eb7fe4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 12
+  _jumpForce: 15
 --- !u!114 &3381754530132286125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,18 +229,6 @@ MonoBehaviour:
   _groundLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &4510796536832992219
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1389538538988213771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37baa72dfe1900247b071661d9f8da0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5941106663296662233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,6 +239,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2014cbcf60078204c931dea808cadb76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1324592962540829234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389538538988213771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0ab441ce24f0e43a16afece11ee652, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7257936042727435847
@@ -261,6 +265,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00f0c2d98650fd845b955defbbf641e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1474733571521390302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389538538988213771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51859f26d6082114591178bcfc82c9e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-6343782168724697004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389538538988213771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e37f1cfacbca5c4cb0ad488c0d90f86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+--- !u!114 &5677219328167365992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389538538988213771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 131cc2384bac8454cad1170e5cde5729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  _radius: 0.8
+  _damage: 25
+  _cooldown: 0.5
+  _hitDelay: 0.5
+--- !u!114 &4481501509218663184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389538538988213771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b53e0f19bb19d49a51d86e43645c4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _respawnDelay: 2
 --- !u!95 &2082663580174975937
 Animator:
   serializedVersion: 5
@@ -291,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7282302564228534258}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroudnCheker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
