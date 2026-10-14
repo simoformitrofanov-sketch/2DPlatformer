@@ -19,7 +19,7 @@ public class PatrolMover : MonoBehaviour
     public void StartMove() => _isActive = true;
     public void StopMove() => _isActive = false;
 
-    private void Update()
+    public void Move()
     {
         if (_isActive == false) return;
 

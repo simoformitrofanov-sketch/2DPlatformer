@@ -8,7 +8,7 @@ public class GroundChecker : MonoBehaviour
 
     public bool IsGrounded { get; private set; }
 
-    private void FixedUpdate()
+    public void Check()
     {
         IsGrounded = Physics2D.OverlapCircle(_checkPoint.position, _checkRadius, _groundLayer);
     }

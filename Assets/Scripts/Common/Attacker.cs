@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AttackAnimator))]
 public class Attacker : MonoBehaviour
 {
     [SerializeField] private LayerMask _targetLayer;
@@ -12,7 +12,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] private float _hitDelay = 0.15f;
 
     private Health _health;
-    private Animator _animator;
+    private AttackAnimator _attackAnimator;
     private Coroutine _attackRoutine;
 
     public float AttackRadius => _radius;
@@ -20,7 +20,7 @@ public class Attacker : MonoBehaviour
     private void Awake()
     {
         _health = GetComponent<Health>();
-        _animator = GetComponent<Animator>();
+        _attackAnimator = GetComponent<AttackAnimator>();
     }
 
     private void OnEnable()
@@ -54,7 +54,7 @@ public class Attacker : MonoBehaviour
 
             if (HasLivingTarget(hits))
             {
-                _animator.SetTrigger("Attack");
+                _attackAnimator.PlayAttack();
                 yield return hitWait;
 
                 DealDamage(hits);

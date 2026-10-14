@@ -27,7 +27,7 @@ public class Chaser : MonoBehaviour
         _body.velocity = Vector2.zero;
     }
 
-    private void FixedUpdate()
+    public void Move()
     {
         if (_isActive == false || _target == null) return;
 

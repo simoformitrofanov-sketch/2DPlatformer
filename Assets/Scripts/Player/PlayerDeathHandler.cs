@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(Player))]
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(PlayerAnimator))]
 public class PlayerDeathHandler : MonoBehaviour
 {
     [SerializeField] private float _respawnDelay = 1f;
@@ -13,7 +13,7 @@ public class PlayerDeathHandler : MonoBehaviour
     private Health _health;
     private Player _player;
     private Rigidbody2D _body;
-    private Animator _animator;
+    private PlayerAnimator _animator;
     private Collider2D _collider;
 
     private void Awake()
@@ -21,7 +21,7 @@ public class PlayerDeathHandler : MonoBehaviour
         _health = GetComponent<Health>();
         _player = GetComponent<Player>();
         _body = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponent<PlayerAnimator>();
         _collider = GetComponent<Collider2D>();
         _health.Died += OnDied;
     }
@@ -40,7 +40,7 @@ public class PlayerDeathHandler : MonoBehaviour
     {
         _player.SetControlEnabled(false);
         _body.velocity = Vector2.zero;
-        _animator.SetTrigger("Die");
+        _animator.PlayDeath();
 
         yield return new WaitForSeconds(_respawnDelay);
 

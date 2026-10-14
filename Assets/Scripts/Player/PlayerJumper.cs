@@ -15,17 +15,17 @@ public class PlayerJumper : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
     }
 
-    private void FixedUpdate()
+    private void OnDestroy()
     {
-        if(_jumpQueued && _groundChecker.IsGrounded)
+        _input.JumpPressed -= OnJumpPressed;
+    }
+
+    public void Jump()
+    {
+        if (_jumpQueued && _groundChecker.IsGrounded)
             _body.velocity = new Vector2(_body.velocity.x, _jumpForce);
 
         _jumpQueued = false;
-    }
-
-    private void OnDestroy()
-    {
-            _input.JumpPressed -= OnJumpPressed;
     }
 
     public void SetDependencies(PlayerInput input, GroundChecker groundChecker)

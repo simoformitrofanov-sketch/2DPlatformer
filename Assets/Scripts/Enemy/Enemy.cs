@@ -17,9 +17,33 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
+        _vision.Check();
+        UpdateState();
+        UpdateMovement();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isChasing)
+        {
+            _chaser.Move();
+        }
+    }
+
+    public void StopAll()
+    {
+        _patrol.StopMove();
+        _chaser.StopChase();
+    }
+
+    private void UpdateState()
+    {
         bool sees = _vision.SeesPlayer;
 
-        if (sees == _isChasing) return;
+        if (sees == _isChasing)
+        {
+            return;
+        }
 
         _isChasing = sees;
 
@@ -35,9 +59,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void StopAll()
+    private void UpdateMovement()
     {
-        _patrol.StopMove();
-        _chaser.StopChase();
+        if (_isChasing == false)
+        {
+            _patrol.Move();
+        }
     }
 }

@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     private PlayerMover _mover;
     private PlayerJumper _jumper;
     private Attacker _attacker;
+    private GroundChecker _groundChecker;
+    private PlayerAnimator _animator;
 
     private void Awake()
     {
@@ -19,12 +21,37 @@ public class Player : MonoBehaviour
         _mover = GetComponent<PlayerMover>();
         _jumper = GetComponent<PlayerJumper>();
         _attacker = GetComponent<Attacker>();
-        GroundChecker groundChecker = GetComponent<GroundChecker>();
-        PlayerAnimator animator = GetComponent<PlayerAnimator>();
+        _groundChecker = GetComponent<GroundChecker>();
+        _animator = GetComponent<PlayerAnimator>();
 
-        animator.SetGroundChecker(groundChecker);
+        _animator.SetGroundChecker(_groundChecker);
         _mover.SetInput(_input);
-        _jumper.SetDependencies(_input, groundChecker);
+        _jumper.SetDependencies(_input, _groundChecker);
+    }
+
+    private void Update()
+    {
+        if (_input.enabled)
+        {
+            _input.Read();
+        }
+
+        _animator.Refresh();
+    }
+
+    private void FixedUpdate()
+    {
+        _groundChecker.Check();
+
+        if (_mover.enabled)
+        {
+            _mover.Move();
+        }
+
+        if (_jumper.enabled)
+        {
+            _jumper.Jump();
+        }
     }
 
     public void SetControlEnabled(bool isEnabled)

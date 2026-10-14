@@ -7,7 +7,7 @@ public class PlayerInput : MonoBehaviour
 
     public float Horizontal { get; private set; }
 
-    private void Update()
+    public void Read()
     {
         Horizontal = Input.GetAxisRaw("Horizontal");
 

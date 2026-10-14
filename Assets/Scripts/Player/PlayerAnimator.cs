@@ -4,9 +4,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerAnimator : MonoBehaviour
 {
-    private static readonly int SpeedHash = Animator.StringToHash("Speed");
-    private static readonly int IsGroundedHash = Animator.StringToHash("IsGrounded");
-
     private Animator _animator;
     private Rigidbody2D _body;
     private GroundChecker _groundChecker;
@@ -17,10 +14,15 @@ public class PlayerAnimator : MonoBehaviour
         _body = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    public void Refresh()
     {
-        _animator.SetFloat(SpeedHash, Mathf.Abs(_body.velocity.x));
-        _animator.SetBool(IsGroundedHash, _groundChecker.IsGrounded);
+        _animator.SetFloat(AnimatorParameters.Speed, Mathf.Abs(_body.velocity.x));
+        _animator.SetBool(AnimatorParameters.IsGrounded, _groundChecker.IsGrounded);
+    }
+
+    public void PlayDeath()
+    {
+        _animator.SetTrigger(AnimatorParameters.Die);
     }
 
     public void SetGroundChecker(GroundChecker groundChecker)

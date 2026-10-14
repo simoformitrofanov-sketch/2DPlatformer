@@ -15,7 +15,7 @@ public class PlayerMover : MonoBehaviour
         _flipper = GetComponent<DirectionFlipper>();
     }
 
-    private void FixedUpdate()
+    public void Move()
     {
         _body.velocity = new Vector2(_input.Horizontal * _speed, _body.velocity.y);
         _flipper.SetFacing(_input.Horizontal);

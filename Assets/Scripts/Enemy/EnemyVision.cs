@@ -7,7 +7,7 @@ public class EnemyVision : MonoBehaviour
 
     public bool SeesPlayer { get; private set; }
 
-    private void FixedUpdate()
+    public void Check()
     { 
         Collider2D hit = Physics2D.OverlapCircle(transform.position, _radius, _playerLayer);
         SeesPlayer = hit != null;
