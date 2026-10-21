@@ -15,7 +15,7 @@ public class MedkitCollector : MonoBehaviour
         if (other.TryGetComponent(out Medkit medkit) == false)
             return;
 
-        _health.FullHeal();
+        _health.Heal(_health.Max);
         Destroy(medkit.gameObject);
     }
 }
