@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(GroundChecker))]
 [RequireComponent(typeof(Attacker))]
 [RequireComponent(typeof(PlayerAnimator))]
+[RequireComponent(typeof(Vampirism))]
 public class Player : MonoBehaviour
 {
     private PlayerInput _input;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private Attacker _attacker;
     private GroundChecker _groundChecker;
     private PlayerAnimator _animator;
+    private Vampirism _vampirism;
 
     private void Awake()
     {
@@ -23,10 +25,21 @@ public class Player : MonoBehaviour
         _attacker = GetComponent<Attacker>();
         _groundChecker = GetComponent<GroundChecker>();
         _animator = GetComponent<PlayerAnimator>();
+        _vampirism = GetComponent<Vampirism>();
 
         _animator.SetGroundChecker(_groundChecker);
         _mover.SetInput(_input);
         _jumper.SetDependencies(_input, _groundChecker);
+    }
+
+    private void OnEnable()
+    {
+        _input.VampirismPressed += _vampirism.Activate;
+    }
+
+    private void OnDisable()
+    {
+        _input.VampirismPressed -= _vampirism.Activate;
     }
 
     private void Update()
@@ -60,5 +73,6 @@ public class Player : MonoBehaviour
         _mover.enabled = isEnabled;
         _jumper.enabled = isEnabled;
         _attacker.enabled = isEnabled;
+        _vampirism.enabled = isEnabled;
     }
 }

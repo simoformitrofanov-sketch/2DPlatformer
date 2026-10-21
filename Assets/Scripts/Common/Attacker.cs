@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(TargetFinder))]
 [RequireComponent(typeof(AttackAnimator))]
 public class Attacker : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] private float _hitDelay = 0.15f;
 
     private Health _health;
+    private TargetFinder _targetFinder;
     private AttackAnimator _attackAnimator;
     private Coroutine _attackRoutine;
 
@@ -20,6 +23,7 @@ public class Attacker : MonoBehaviour
     private void Awake()
     {
         _health = GetComponent<Health>();
+        _targetFinder = GetComponent<TargetFinder>();
         _attackAnimator = GetComponent<AttackAnimator>();
     }
 
@@ -50,37 +54,31 @@ public class Attacker : MonoBehaviour
                 continue;
             }
 
-            Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, _radius, _targetLayer);
+            List<Health> targets = _targetFinder.FindTargets(_radius, _targetLayer);
 
-            if (HasLivingTarget(hits))
+            if (targets.Count > 0)
             {
                 _attackAnimator.PlayAttack();
                 yield return hitWait;
 
-                DealDamage(hits);
+                DealDamage(targets);
             }
 
             yield return wait;
         }
     }
 
-    private bool HasLivingTarget(Collider2D[] hits)
+    private void DealDamage(List<Health> targets)
     {
-        foreach (Collider2D hit in hits)
+        foreach (Health target in targets)
         {
-            if (hit.TryGetComponent(out Health target) && target.IsDead == false)
-                return true;
-        }
+            if (target == null)
+                continue;
 
-        return false;
-    }
+            if (target.IsDead)
+                continue;
 
-    private void DealDamage(Collider2D[] hits)
-    {
-        foreach (Collider2D hit in hits)
-        {
-            if (hit.TryGetComponent(out Health target) && target.IsDead == false)
-                target.TakeDamage(_damage);
+            target.TakeDamage(_damage);
         }
     }
 }

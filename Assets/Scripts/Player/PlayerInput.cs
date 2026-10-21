@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerInput : MonoBehaviour
 {
     public event Action JumpPressed;
+    public event Action VampirismPressed;
 
     public float Horizontal { get; private set; }
 
@@ -13,5 +14,8 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) 
             JumpPressed?.Invoke();
+
+        if (Input.GetKeyDown(KeyCode.E))
+            VampirismPressed?.Invoke();
     }
 }
