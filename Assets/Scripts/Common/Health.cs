@@ -9,12 +9,12 @@ public class Health : MonoBehaviour
     public event Action Died;
 
     public float Max => _max;
-    public float Current { get; private set; }
-    public bool IsDead => Current <= 0f;
+    public float CurrentHealth { get; private set; }
+    public bool IsDead => CurrentHealth <= 0f;
 
     private void Awake()
     {
-        Current = _max;
+        CurrentHealth = _max;
     }
 
     public void TakeDamage(float amount)
@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
         if (IsDead)
             return;
 
-        SetCurrent(Current - amount);
+        SetCurrent(CurrentHealth - amount);
 
         if (IsDead)
             Died?.Invoke();
@@ -39,12 +39,12 @@ public class Health : MonoBehaviour
         if (IsDead)
             return;
 
-        SetCurrent(Current + amount);
+        SetCurrent(CurrentHealth + amount);
     }
 
     private void SetCurrent(float value)
     {
-        Current = Mathf.Clamp(value, 0f, Max);
-        Changed?.Invoke(Current, Max);
+        CurrentHealth = Mathf.Clamp(value, 0f, Max);
+        Changed?.Invoke(CurrentHealth, Max);
     }
 }

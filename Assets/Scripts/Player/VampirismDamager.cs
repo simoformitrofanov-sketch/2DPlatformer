@@ -25,7 +25,7 @@ public class VampirismDamager : MonoBehaviour
         if (target == null)
             return;
 
-        float damage = Mathf.Min(_damagePerSecond * deltaTime, target.Current);
+        float damage = Mathf.Min(_damagePerSecond * deltaTime, target.CurrentHealth);
 
         target.TakeDamage(damage);
         _health.Heal(damage);

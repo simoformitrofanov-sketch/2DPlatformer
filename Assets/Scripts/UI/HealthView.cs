@@ -16,7 +16,7 @@ public abstract class HealthView : MonoBehaviour
 
     private void Start()
     {
-        Initialize(_health.Current, _health.Max);
+        Initialize(_health.CurrentHealth, _health.Max);
     }
 
     protected virtual void Initialize(float current, float max)
