@@ -1,8 +1,8 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(VampirismDamager))]
-[RequireComponent(typeof(VampirismView))]
 public class Vampirism : MonoBehaviour
 {
     [SerializeField] private float _duration = 6f;
@@ -10,12 +10,16 @@ public class Vampirism : MonoBehaviour
 
     private Coroutine _abilityRoutine;
     private VampirismDamager _damager;
-    private VampirismView _view;
+    private readonly WaitForFixedUpdate _fixedUpdateWait = new WaitForFixedUpdate();
+
+    public event Action Started;
+    public event Action CooldownStarted;
+    public event Action Stopped;
+    public event Action<float> ProgressChanged;
 
     private void Awake()
     {
         _damager = GetComponent<VampirismDamager>();
-        _view = GetComponent<VampirismView>();
     }
 
     private void OnDisable()
@@ -26,7 +30,7 @@ public class Vampirism : MonoBehaviour
             _abilityRoutine = null;
         }
 
-        _view.Stop();
+        Stopped?.Invoke();
     }
 
     public void Activate()
@@ -39,32 +43,47 @@ public class Vampirism : MonoBehaviour
 
     private IEnumerator AbilityRoutine()
     {
-        _view.StartAbility();
+        yield return DrainRoutine();
+        yield return CooldownRoutine();
+
+        Stopped?.Invoke();
+        _abilityRoutine = null;
+    }
+
+    private IEnumerator DrainRoutine()
+    {
+        Started?.Invoke();
 
         float elapsed = 0f;
 
         while (elapsed < _duration)
         {
-            float deltaTime = Mathf.Min(Time.deltaTime, _duration - elapsed);
+            yield return _fixedUpdateWait;
 
-            _damager.Tick(deltaTime);
+            float deltaTime = Mathf.Min(Time.fixedDeltaTime, _duration - elapsed);
+
+            _damager.DrainHealth(deltaTime);
             elapsed += deltaTime;
-            _view.SetProgress(1f - elapsed / _duration);
-            yield return null;
+
+            ProgressChanged?.Invoke(1f - elapsed / _duration);
         }
+    }
 
-        _view.StartCooldown();
+    private IEnumerator CooldownRoutine()
+    {
+        CooldownStarted?.Invoke();
 
-        elapsed = 0f;
+        float elapsed = 0f;
 
         while (elapsed < _cooldown)
         {
-            elapsed += Time.deltaTime;
-            _view.SetProgress(elapsed / _cooldown);
-            yield return null;
-        }
+            yield return _fixedUpdateWait;
 
-        _view.Stop();
-        _abilityRoutine = null;
+            float deltaTime = Mathf.Min(Time.fixedDeltaTime, _cooldown - elapsed);
+
+            elapsed += deltaTime;
+
+            ProgressChanged?.Invoke(elapsed / _cooldown);
+        }
     }
 }

@@ -22,6 +22,8 @@ public class PlayerAnimator : MonoBehaviour
 
     public void PlayDeath()
     {
+        _animator.SetBool(AnimatorParameters.IsDead, true);
+        _animator.ResetTrigger(AnimatorParameters.Attack);
         _animator.SetTrigger(AnimatorParameters.Die);
     }
 

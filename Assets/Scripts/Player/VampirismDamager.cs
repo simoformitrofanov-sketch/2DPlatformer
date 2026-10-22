@@ -18,15 +18,14 @@ public class VampirismDamager : MonoBehaviour
         _targetFinder = GetComponent<TargetFinder>();
     }
 
-    public void Tick(float deltaTime)
+    public void DrainHealth(float deltaTime)
     {
         Health target = FindNearestTarget();
 
         if (target == null)
             return;
 
-        float damage = Mathf.Min(
-            _damagePerSecond * deltaTime, target.Current);
+        float damage = Mathf.Min(_damagePerSecond * deltaTime, target.Current);
 
         target.TakeDamage(damage);
         _health.Heal(damage);
@@ -34,20 +33,19 @@ public class VampirismDamager : MonoBehaviour
 
     private Health FindNearestTarget()
     {
-        List<Health> targets = _targetFinder.FindTargets(
-            _radius, _targetLayer);
+        List<Health> targets = _targetFinder.FindTargets(_radius, _targetLayer);
 
         Health nearestTarget = null;
-        float nearestDistance = float.MaxValue;
+        float nearestSqrDistance = float.MaxValue;
 
         foreach (Health target in targets)
         {
-            float distance = Vector2.Distance(
-                transform.position, target.transform.position);
+            Vector2 offset = target.transform.position - transform.position;
+            float sqrDistance = offset.sqrMagnitude;
 
-            if (distance < nearestDistance)
+            if (sqrDistance < nearestSqrDistance)
             {
-                nearestDistance = distance;
+                nearestSqrDistance = sqrDistance;
                 nearestTarget = target;
             }
         }

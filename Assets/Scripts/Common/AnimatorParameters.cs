@@ -6,4 +6,5 @@ public static class AnimatorParameters
     public static readonly int IsGrounded = Animator.StringToHash("IsGrounded");
     public static readonly int Attack = Animator.StringToHash("Attack");
     public static readonly int Die = Animator.StringToHash("Die");
+    public static readonly int IsDead = Animator.StringToHash("IsDead");
 }

@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: -7642392984429225606}
   - component: {fileID: 7757448479293757345}
   - component: {fileID: 7399199330628468519}
+  - component: {fileID: 9190419336745340750}
   - component: {fileID: 4481501509218663184}
   - component: {fileID: 2082663580174975937}
   - component: {fileID: 944381375266128476}
@@ -407,8 +408,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1f524444339a6419a6f1f3b27b78c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _radiusRenderer: {fileID: 2769593772452567423}
+  _vampirism: {fileID: -7642392984429225606}
   _timeBar: {fileID: 917925314603176184}
+--- !u!114 &9190419336745340750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389538538988213771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d03c54fd376c74aba2e4a19b888d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _vampirism: {fileID: -7642392984429225606}
+  _radiusRenderer: {fileID: 2769593772452567423}
 --- !u!114 &4481501509218663184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,7 +505,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -15}
+  m_AnchoredPosition: {x: 0, y: -10}
   m_SizeDelta: {x: 120, y: 15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &917925314603176184
