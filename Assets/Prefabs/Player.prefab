@@ -362,7 +362,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _radius: 0.8
-  _damage: 30
+  _damage: 25
   _cooldown: 0.5
   _hitDelay: 0.5
 --- !u!114 &-7642392984429225606
